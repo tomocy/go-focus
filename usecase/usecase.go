@@ -44,4 +44,6 @@ func (u *registerUser) Do(email, pass string) (*focus.User, error) {
 	return user, nil
 }
 
-type authenticateUser struct{}
+type authenticateUser struct {
+	userRepo focus.UserRepo
+}
