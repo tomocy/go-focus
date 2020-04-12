@@ -14,3 +14,13 @@ type userRepo struct {
 func (r userRepo) NextID(context.Context) (focus.UserID, error) {
 	return focus.UserID(rand.GenerateString(30)), nil
 }
+
+func (r userRepo) FindByEmail(_ context.Context, email string) (*focus.User, error) {
+	for _, u := range r.users {
+		if u.Email() == email {
+			return u, nil
+		}
+	}
+
+	return nil, focus.ErrNoSuchUser
+}
