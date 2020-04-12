@@ -44,6 +44,16 @@ func (u User) Email() string {
 	return u.email
 }
 
+func (u *User) setEmail(email string) error {
+	if email == "" {
+		return fmt.Errorf("empty email")
+	}
+
+	u.email = email
+
+	return nil
+}
+
 func (u User) Password() Password {
 	return u.password
 }
