@@ -1,7 +1,8 @@
 package focus
 
 type User struct {
-	id UserID
+	id    UserID
+	email string
 }
 
 type UserID string
