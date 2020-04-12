@@ -33,6 +33,10 @@ func (u User) Email() string {
 	return u.email
 }
 
+func (u User) Password() Password {
+	return u.password
+}
+
 type UserID string
 
 func HashPassword(plain string) (Password, error) {
