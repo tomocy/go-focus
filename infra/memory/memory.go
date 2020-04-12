@@ -24,3 +24,9 @@ func (r userRepo) FindByEmail(_ context.Context, email string) (*focus.User, err
 
 	return nil, focus.ErrNoSuchUser
 }
+
+func (r *userRepo) Save(_ context.Context, u *focus.User) error {
+	r.users[u.ID()] = u
+
+	return nil
+}
