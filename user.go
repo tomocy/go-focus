@@ -19,6 +19,22 @@ type UserRepo interface {
 	Delete(context.Context, UserID) error
 }
 
+func NewUser(id UserID, email string, pass Password) (*User, error) {
+	u := new(User)
+
+	if err := u.setID(id); err != nil {
+		return nil, err
+	}
+	if err := u.setEmail(email); err != nil {
+		return nil, err
+	}
+	if err := u.setPassword(pass); err != nil {
+		return nil, err
+	}
+
+	return u, nil
+}
+
 type User struct {
 	id       UserID
 	email    string
