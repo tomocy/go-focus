@@ -1,6 +1,9 @@
 package focus
 
-import "context"
+import (
+	"context"
+	"fmt"
+)
 
 const (
 	ErrNoSession = err("no session")
@@ -14,4 +17,14 @@ type SessionRepo interface {
 
 type Session struct {
 	userID UserID
+}
+
+func (s *Session) setUserID(id UserID) error {
+	if id == "" {
+		return fmt.Errorf("empty user id")
+	}
+
+	s.userID = id
+
+	return nil
 }
