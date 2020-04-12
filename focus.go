@@ -39,5 +39,6 @@ const (
 )
 
 type Timer struct {
+	*time.Timer
 	duration time.Duration
 }
