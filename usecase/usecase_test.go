@@ -87,6 +87,47 @@ func TestChangeEmail(t *testing.T) {
 	}
 }
 
+func TestChangePassword(t *testing.T) {
+	userRepo, sessRepo := memory.NewUserRepo(), memory.NewSessionRepo()
+
+	email, pass := "email", "pass"
+
+	regiUser := registerUser{
+		userRepo: userRepo,
+		sessRepo: sessRepo,
+	}
+	regiUser.Do(email, pass)
+
+	u := changePassword{
+		userRepo: userRepo,
+		sessRepo: sessRepo,
+	}
+	changedPass := "changed pass"
+	user, err := u.Do(changedPass)
+	if err != nil {
+		t.Errorf("should have changed password of user: %s", err)
+		return
+	}
+
+	if err := assertUser(
+		user,
+		checkIfPasswordOfUserIsCorrect(changedPass),
+	); err != nil {
+		t.Errorf("shuold have returned the password-changed user: %s", err)
+		return
+	}
+
+	saved, _ := userRepo.FindByEmail(context.Background(), email)
+
+	if err := assertUser(
+		saved,
+		checkIfPasswordOfUserIsCorrect(changedPass),
+	); err != nil {
+		t.Errorf("shuold have saved the password-changed user: %s", err)
+		return
+	}
+}
+
 func TestDeleteUser(t *testing.T) {
 	userRepo, sessRepo := memory.NewUserRepo(), memory.NewSessionRepo()
 
