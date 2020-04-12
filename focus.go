@@ -42,4 +42,5 @@ type Timer struct {
 	*time.Timer
 	duration  time.Duration
 	startedAt time.Time
+	stoppedAt time.Time
 }
