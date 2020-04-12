@@ -15,6 +15,16 @@ type SessionRepo interface {
 	Delete(context.Context) error
 }
 
+func NewSession(userID UserID) (*Session, error) {
+	s := new(Session)
+
+	if err := s.setUserID(userID); err != nil {
+		return nil, err
+	}
+
+	return s, nil
+}
+
 type Session struct {
 	userID UserID
 }
