@@ -49,6 +49,30 @@ type changeEmail struct {
 	sessRepo focus.SessionRepo
 }
 
+func (u *changeEmail) Do(email string) (*focus.User, error) {
+	ctx := context.TODO()
+
+	sess, err := u.sessRepo.Pull(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("failed to pull session: %w", err)
+	}
+
+	user, err := u.userRepo.Find(ctx, sess.UserID())
+	if err != nil {
+		return nil, fmt.Errorf("failed to find user: %w", err)
+	}
+
+	if err := user.ChangeEmail(email); err != nil {
+		return nil, err
+	}
+
+	if err := u.userRepo.Save(ctx, user); err != nil {
+		return nil, fmt.Errorf("failed to save user: %w", err)
+	}
+
+	return user, nil
+}
+
 type deleteUser struct {
 	userRepo focus.UserRepo
 	sessRepo focus.SessionRepo
