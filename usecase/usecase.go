@@ -75,6 +75,7 @@ func (u *changeEmail) Do(email string) (*focus.User, error) {
 
 type changePassword struct {
 	userRepo focus.UserRepo
+	sessRepo focus.SessionRepo
 }
 
 type deleteUser struct {
