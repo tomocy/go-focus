@@ -6,6 +6,7 @@ type User struct {
 	id       UserID
 	email    string
 	password Password
+	status   UserStatus
 }
 
 type UserID string
