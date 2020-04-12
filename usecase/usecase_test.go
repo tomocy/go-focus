@@ -51,6 +51,37 @@ func TestRegisterUser(t *testing.T) {
 	}
 }
 
+func TestDeleteUser(t *testing.T) {
+	userRepo, sessRepo := memory.NewUserRepo(), memory.NewSessionRepo()
+
+	email, pass := "email", "pass"
+
+	regiUser := registerUser{
+		userRepo: userRepo,
+		sessRepo: sessRepo,
+	}
+	regiUser.Do(email, pass)
+
+	u := deleteUser{
+		userRepo: userRepo,
+		sessRepo: sessRepo,
+	}
+	if err := u.Do(); err != nil {
+		t.Errorf("should have deleted user: %s", err)
+		return
+	}
+
+	if _, err := userRepo.FindByEmail(context.Background(), email); err == nil {
+		t.Errorf("should have deleted user")
+		return
+	}
+
+	if _, err := sessRepo.Pull(context.Background()); err == nil {
+		t.Errorf("should have deleted the sesion of the deleted user")
+		return
+	}
+}
+
 func TestAuthenticateUser(t *testing.T) {
 	userRepo, sessRepo := memory.NewUserRepo(), memory.NewSessionRepo()
 

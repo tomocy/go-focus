@@ -49,6 +49,25 @@ type deleteUser struct {
 	sessRepo focus.SessionRepo
 }
 
+func (u *deleteUser) Do() error {
+	ctx := context.TODO()
+
+	sess, err := u.sessRepo.Pull(ctx)
+	if err != nil {
+		return fmt.Errorf("failed to pull session: %w", err)
+	}
+
+	if err := u.userRepo.Delete(ctx, sess.UserID()); err != nil {
+		return err
+	}
+
+	if err := u.sessRepo.Delete(ctx); err != nil {
+		return fmt.Errorf("failed to delete session: %w", err)
+	}
+
+	return nil
+}
+
 type authenticateUser struct {
 	userRepo focus.UserRepo
 	sessRepo focus.SessionRepo
