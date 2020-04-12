@@ -1,12 +1,15 @@
 package focus
 
 import (
+	"context"
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
 )
 
-type UserRepo interface{}
+type UserRepo interface {
+	NextID(context.Context) (UserID, error)
+}
 
 type User struct {
 	id       UserID
