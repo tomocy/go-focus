@@ -60,6 +60,10 @@ func (u User) Email() string {
 	return u.email
 }
 
+func (u *User) ChangeEmail(email string) error {
+	return u.setEmail(email)
+}
+
 func (u *User) setEmail(email string) error {
 	if email == "" {
 		return fmt.Errorf("empty email")
