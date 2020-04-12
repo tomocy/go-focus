@@ -7,6 +7,10 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+const (
+	ErrNoSuchUser = err("no such user")
+)
+
 type UserRepo interface {
 	NextID(context.Context) (UserID, error)
 	FindByEmail(context.Context, string) (*User, error)
