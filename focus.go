@@ -40,6 +40,7 @@ const (
 
 type Record struct {
 	userID UserID
+	from   time.Time
 }
 
 type Timer struct {
