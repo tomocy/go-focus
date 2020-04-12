@@ -40,5 +40,6 @@ const (
 
 type Timer struct {
 	*time.Timer
-	duration time.Duration
+	duration  time.Duration
+	startedAt time.Time
 }
