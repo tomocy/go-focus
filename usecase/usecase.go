@@ -44,6 +44,8 @@ func (u *registerUser) Do(email, pass string) (*focus.User, error) {
 	return user, nil
 }
 
+type changeEmail struct{}
+
 type deleteUser struct {
 	userRepo focus.UserRepo
 	sessRepo focus.SessionRepo
