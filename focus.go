@@ -21,6 +21,10 @@ type User struct {
 	status   UserStatus
 }
 
+func (u User) Email() string {
+	return u.email
+}
+
 type UserID string
 
 func HashPassword(plain string) (Password, error) {
