@@ -78,6 +78,10 @@ func (u User) Password() Password {
 	return u.password
 }
 
+func (u *User) ChangePassword(pass Password) error {
+	return u.setPassword(pass)
+}
+
 func (u *User) setPassword(pass Password) error {
 	if pass == "" {
 		return fmt.Errorf("empty password")
