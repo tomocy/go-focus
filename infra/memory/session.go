@@ -1,3 +1,7 @@
 package memory
 
-type sessionRepo struct{}
+import "github.com/tomocy/focus"
+
+type sessionRepo struct {
+	sess *focus.Session
+}
