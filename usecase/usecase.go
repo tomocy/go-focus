@@ -48,3 +48,27 @@ type authenticateUser struct {
 	userRepo focus.UserRepo
 	sessRepo focus.SessionRepo
 }
+
+func (u *authenticateUser) Do(email, pass string) (*focus.User, error) {
+	ctx := context.TODO()
+
+	user, err := u.userRepo.FindByEmail(ctx, email)
+	if err != nil {
+		return nil, fmt.Errorf("failed to find user by email: %w", err)
+	}
+
+	if !user.Password().IsSame(pass) {
+		return nil, err
+	}
+
+	sess, err := focus.NewSession(user.ID())
+	if err != nil {
+		return nil, fmt.Errorf("failed to generate session: %w", err)
+	}
+
+	if err := u.sessRepo.Push(ctx, sess); err != nil {
+		return nil, fmt.Errorf("failed to push session: %w", err)
+	}
+
+	return user, nil
+}

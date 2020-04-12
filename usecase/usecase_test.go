@@ -51,6 +51,44 @@ func TestRegisterUser(t *testing.T) {
 	}
 }
 
+func TestAuthenticateUser(t *testing.T) {
+	userRepo, sessRepo := memory.NewUserRepo(), memory.NewSessionRepo()
+
+	email, pass := "email", "pass"
+
+	regiUser := registerUser{
+		userRepo: userRepo,
+		sessRepo: sessRepo,
+	}
+	regiUser.Do(email, pass)
+
+	sessRepo.Delete(context.Background())
+
+	u := authenticateUser{
+		userRepo: userRepo,
+		sessRepo: sessRepo,
+	}
+	user, err := u.Do(email, pass)
+	if err != nil {
+		t.Errorf("should have authenticated user: %s", err)
+		return
+	}
+
+	sess, err := sessRepo.Pull(context.Background())
+	if err != nil {
+		t.Errorf("should have pushed session of the authenticated user: %s", err)
+		return
+	}
+
+	if err := assertUser(
+		user,
+		checkIfIDOfUserIsSame(sess.UserID()),
+	); err != nil {
+		t.Errorf("should have returned the authenticaed user: %s", err)
+		return
+	}
+}
+
 func assertUser(u *focus.User, ops ...assertUserOption) error {
 	for _, o := range ops {
 		if err := o(u); err != nil {
@@ -67,6 +105,16 @@ func checkIfIDOfUserIsFilled() assertUserOption {
 	return func(u *focus.User) error {
 		if u.ID() == "" {
 			return fmt.Errorf("empty id")
+		}
+
+		return nil
+	}
+}
+
+func checkIfIDOfUserIsSame(id focus.UserID) assertUserOption {
+	return func(u *focus.User) error {
+		if u.ID() != id {
+			return reportUnexpected("id", u.ID(), id)
 		}
 
 		return nil
