@@ -6,6 +6,10 @@ import (
 	"github.com/tomocy/focus"
 )
 
+func NewSessionRepo() *sessionRepo {
+	return new(sessionRepo)
+}
+
 type sessionRepo struct {
 	sess *focus.Session
 }
