@@ -9,6 +9,7 @@ import (
 
 type UserRepo interface {
 	NextID(context.Context) (UserID, error)
+	Save(context.Context, *User) error
 }
 
 type User struct {
