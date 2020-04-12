@@ -1,5 +1,7 @@
 package focus
 
+import "golang.org/x/crypto/bcrypt"
+
 type User struct {
 	id       UserID
 	email    string
@@ -7,5 +9,14 @@ type User struct {
 }
 
 type UserID string
+
+func HashPassword(plain string) (Password, error) {
+	hash, err := bcrypt.GenerateFromPassword([]byte(plain), bcrypt.DefaultCost)
+	if err != nil {
+		return "", err
+	}
+
+	return Password(hash), nil
+}
 
 type Password string
