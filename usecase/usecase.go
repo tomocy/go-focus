@@ -73,6 +73,8 @@ func (u *changeEmail) Do(email string) (*focus.User, error) {
 	return user, nil
 }
 
+type changePassword struct{}
+
 type deleteUser struct {
 	userRepo focus.UserRepo
 	sessRepo focus.SessionRepo
