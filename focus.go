@@ -9,6 +9,7 @@ import (
 
 type UserRepo interface {
 	NextID(context.Context) (UserID, error)
+	FindByEmail(context.Context, string) (*User, error)
 	Save(context.Context, *User) error
 	Delete(context.Context, UserID) error
 }
