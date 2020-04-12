@@ -30,3 +30,9 @@ func (r *userRepo) Save(_ context.Context, u *focus.User) error {
 
 	return nil
 }
+
+func (r *userRepo) Delete(_ context.Context, id focus.UserID) error {
+	delete(r.users, id)
+
+	return nil
+}
