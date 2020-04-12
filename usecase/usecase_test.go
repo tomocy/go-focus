@@ -89,6 +89,31 @@ func TestAuthenticateUser(t *testing.T) {
 	}
 }
 
+func TestDeauthenticateUser(t *testing.T) {
+	userRepo, sessRepo := memory.NewUserRepo(), memory.NewSessionRepo()
+
+	email, pass := "email", "pass"
+
+	regiUser := registerUser{
+		userRepo: userRepo,
+		sessRepo: sessRepo,
+	}
+	regiUser.Do(email, pass)
+
+	u := deauthenticateUser{
+		repo: sessRepo,
+	}
+	if err := u.Do(); err != nil {
+		t.Errorf("should have deauthenticated user: %s", err)
+		return
+	}
+
+	if _, err := sessRepo.Pull(context.Background()); err == nil {
+		t.Errorf("should have deleted session")
+		return
+	}
+}
+
 func assertUser(u *focus.User, ops ...assertUserOption) error {
 	for _, o := range ops {
 		if err := o(u); err != nil {

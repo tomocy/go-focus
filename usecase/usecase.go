@@ -76,3 +76,13 @@ func (u *authenticateUser) Do(email, pass string) (*focus.User, error) {
 type deauthenticateUser struct {
 	repo focus.SessionRepo
 }
+
+func (u *deauthenticateUser) Do() error {
+	ctx := context.TODO()
+
+	if err := u.repo.Delete(ctx); err != nil {
+		return err
+	}
+
+	return nil
+}
