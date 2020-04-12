@@ -1,6 +1,10 @@
 package focus
 
-import "golang.org/x/crypto/bcrypt"
+import (
+	"time"
+
+	"golang.org/x/crypto/bcrypt"
+)
 
 type User struct {
 	id       UserID
@@ -34,4 +38,6 @@ const (
 	userStatusBreaking
 )
 
-type Timer struct{}
+type Timer struct {
+	duration time.Duration
+}
