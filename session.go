@@ -1,3 +1,5 @@
 package focus
 
-type Session struct{}
+type Session struct {
+	userID UserID
+}
