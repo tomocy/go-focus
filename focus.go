@@ -33,3 +33,5 @@ const (
 	userStatusFocusing
 	userStatusBreaking
 )
+
+type Timer struct{}
