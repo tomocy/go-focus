@@ -58,6 +58,16 @@ func (u User) Password() Password {
 	return u.password
 }
 
+func (u *User) setPassword(pass Password) error {
+	if pass == "" {
+		return fmt.Errorf("empty password")
+	}
+
+	u.password = pass
+
+	return nil
+}
+
 type UserID string
 
 func HashPassword(plain string) (Password, error) {
