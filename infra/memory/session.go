@@ -23,3 +23,9 @@ func (r *sessionRepo) Push(_ context.Context, s *focus.Session) error {
 
 	return nil
 }
+
+func (r *sessionRepo) Delete(context.Context) error {
+	r.sess = nil
+
+	return nil
+}
