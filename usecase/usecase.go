@@ -43,3 +43,5 @@ func (u *registerUser) Do(email, pass string) (*focus.User, error) {
 
 	return user, nil
 }
+
+type authenticateUser struct{}
