@@ -72,3 +72,5 @@ func (u *authenticateUser) Do(email, pass string) (*focus.User, error) {
 
 	return user, nil
 }
+
+type deauthenticateUser struct{}
