@@ -17,3 +17,9 @@ func (r sessionRepo) Pull(context.Context) (*focus.Session, error) {
 
 	return r.sess, nil
 }
+
+func (r *sessionRepo) Push(_ context.Context, s *focus.Session) error {
+	r.sess = s
+
+	return nil
+}
