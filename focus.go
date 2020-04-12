@@ -24,3 +24,5 @@ type Password string
 func (p Password) IsSame(plain string) bool {
 	return bcrypt.CompareHashAndPassword([]byte(p), []byte(plain)) == nil
 }
+
+type UserStatus int
