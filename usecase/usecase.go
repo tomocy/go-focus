@@ -1,3 +1,7 @@
 package usecase
 
-type registerUser struct{}
+import "github.com/tomocy/focus"
+
+type registerUser struct {
+	userRepo focus.UserRepo
+}
