@@ -26,3 +26,9 @@ func (p Password) IsSame(plain string) bool {
 }
 
 type UserStatus int
+
+const (
+	userStatusReady UserStatus = iota
+	userStatusFocusing
+	userStatusBreaking
+)
