@@ -6,3 +6,5 @@ type User struct {
 }
 
 type UserID string
+
+type Password string
