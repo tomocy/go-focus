@@ -2,6 +2,7 @@ package focus
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
@@ -27,6 +28,16 @@ type User struct {
 
 func (u User) ID() UserID {
 	return u.id
+}
+
+func (u *User) setID(id UserID) error {
+	if id == "" {
+		return fmt.Errorf("empty id")
+	}
+
+	u.id = id
+
+	return nil
 }
 
 func (u User) Email() string {
