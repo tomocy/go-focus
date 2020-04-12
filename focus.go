@@ -21,6 +21,10 @@ type User struct {
 	status   UserStatus
 }
 
+func (u User) ID() UserID {
+	return u.id
+}
+
 func (u User) Email() string {
 	return u.email
 }
