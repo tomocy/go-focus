@@ -38,6 +38,8 @@ const (
 	userStatusBreaking
 )
 
+type Record struct{}
+
 type Timer struct {
 	*time.Timer
 	duration  time.Duration
