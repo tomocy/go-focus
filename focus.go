@@ -6,6 +6,8 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+type UserRepo interface{}
+
 type User struct {
 	id       UserID
 	email    string
