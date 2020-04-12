@@ -21,6 +21,15 @@ func (r userRepo) NextID(context.Context) (focus.UserID, error) {
 	return focus.UserID(rand.GenerateString(30)), nil
 }
 
+func (r userRepo) Find(_ context.Context, id focus.UserID) (*focus.User, error) {
+	u, ok := r.users[id]
+	if !ok {
+		return nil, focus.ErrNoSuchUser
+	}
+
+	return u, nil
+}
+
 func (r userRepo) FindByEmail(_ context.Context, email string) (*focus.User, error) {
 	for _, u := range r.users {
 		if u.Email() == email {
