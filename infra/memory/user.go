@@ -7,6 +7,12 @@ import (
 	"github.com/tomocy/focus/infra/rand"
 )
 
+func NewUserRepo() *userRepo {
+	return &userRepo{
+		users: make(map[focus.UserID]*focus.User),
+	}
+}
+
 type userRepo struct {
 	users map[focus.UserID]*focus.User
 }
