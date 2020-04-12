@@ -1,5 +1,7 @@
 package focus
 
-type User struct{}
+type User struct {
+	id UserID
+}
 
 type UserID string
